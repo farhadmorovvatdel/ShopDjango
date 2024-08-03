@@ -46,7 +46,7 @@ def RegisterView(request):
         if  Register.is_valid():
             password =  Register.cleaned_data['Password']
             user = CustomeUser.objects.filter(mobile= Register.cleaned_data['mobile']).first()
-            if user is  None:
+            if user :
                 return  JsonResponse({'reponse':'found'})
             else:
                 user1 = Register.save(commit=False)
