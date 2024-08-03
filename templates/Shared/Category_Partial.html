@@ -1,0 +1,26 @@
+
+{% for category in categories %}
+<li>
+ <a href="javascript:void(0);">{{ category.name }} </a>
+    {% if category.subcategories.all %}
+    <div class="drop-menu mega-menu">
+        <ul class="sub-menu">
+            <li>
+             {% for subcat in category.subcategories.all %}
+                 <ul class="super-sub-menu">
+                        <li>
+                            <a href="product_category.html">{{ subcat.name }} </a>
+                        </li>
+                 </ul>
+                 {% endfor %}  
+            </li>
+        </ul>
+    </div>
+{% endif %}
+</li>
+{% endfor %}
+    
+    
+    
+    
+    
