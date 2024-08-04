@@ -2182,23 +2182,23 @@ body.open-cart .main-wrapper:not(.sb-cartbox) {
 .na-color-skin > li {
     border: 2px solid var(--white-color);
     border-radius: 50%;
-    background-color: #ffc26b;
+    /*background-color: #ffc26b;*/
     width: 17px;
     height: 17px;
     margin-left: 4px;
 }
-.na-color-skin > li:nth-child(02) {
-    background: rgb(12, 12, 12);
-}
-.na-color-skin > li:nth-child(03) {
-    background: rgb(160, 160, 160);
-}
-.na-color-skin > li:nth-child(04) {
-    background: rgb(205, 97, 255);
-}
-.na-color-skin > li:nth-child(05) {
-    background: rgb(255, 118, 147);
-}
+/*.na-color-skin > li:nth-child(02) {*/
+/*    background: rgb(12, 12, 12);*/
+/*}*/
+/*.na-color-skin > li:nth-child(03) {*/
+/*    background: rgb(160, 160, 160);*/
+/*}*/
+/*.na-color-skin > li:nth-child(04) {*/
+/*    background: rgb(205, 97, 255);*/
+/*}*/
+/*.na-color-skin > li:nth-child(05) {*/
+/*    background: rgb(255, 118, 147);*/
+/*}*/
 .na-hover-content > li > a {
     border-radius: 50%;
     background-color: rgb(34, 34, 34);

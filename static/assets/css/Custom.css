@@ -1,0 +1,15 @@
+.error-message
+{
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.5em;
+
+}
+.color-box {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            margin: 10px;
+            border: 1px solid ;
+            background-color: var(--color);
+}
