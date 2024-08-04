@@ -58,9 +58,9 @@
 
 
 
-                                        {% for pr in uniquvariations %}
+                                        {% for ProductColor in unique_variation_color %}
 
-                                        <li class="color-box" data-color="{{ pr.color.name }}" style="--color: {{ pr.color.name }};"></li>
+                                        <li class="color-box" data-color="{{ ProductColor.color.name }}" style="--color: {{ ProductColor.color.name }};"></li>
 
                                             {% endfor %}
                                     </ul>
