@@ -109,3 +109,66 @@ $(document).ready(function (){
  //            })
  //      });
 
+ $(document).ready(function() {
+        $('.color-box').on('click', function() {
+            // حذف کلاس 'selected' از تمام رنگ‌ها
+            $('.color-box').removeClass('selected');
+            // اضافه کردن کلاس 'selected' به رنگ انتخاب شده
+            $(this).addClass('selected');
+            // به‌روزرسانی فیلد مخفی با رنگ انتخاب شده
+            $('#selected-color').val($(this).data('color'));
+            // چاپ رنگ انتخاب شده در کنسول برای تست
+            console.log('Selected color:', $(this).data('color'));
+        });
+    });
+
+ $(document).ready(function() {
+        $('.size-box').on('click', function() {
+            // حذف کلاس 'selected' از تمام سایزها
+            $('.size-box').removeClass('selected');
+            // اضافه کردن کلاس 'selected' به سایز انتخاب شده
+            $(this).addClass('selected');
+            // به‌روزرسانی فیلد مخفی با سایز انتخاب شده
+            $('#selected-size').val($(this).data('size'));
+            // چاپ سایز انتخاب شده در کنسول برای تست
+            console.log('Selected size:', $(this).data('size'));
+        });
+    });
+
+   $(document).ready(function() {
+        $('.add-to-favorites').on('click', function(event) {
+            event.preventDefault();
+
+            var url = $(this).attr('href');
+            console.log(url)
+            var productId = $(this).data('product-id');
+            console.log(productId)
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    var message= $('#fave-message')
+                    if (response.status === 'Found') {
+                   message.text("این محصول قبلا به لیست علاقه مندی اضافه شده است")
+                   message.css('background', 'red')
+                   message.show()
+
+                    }
+
+                    else if (response.status === 'Added') {
+                        message.text("محصول پسندیده شد")
+                       message.css('background', 'green')
+                       message.show()
+                    }
+                    setTimeout(function() {
+                        message.fadeOut();
+                    }, 3000);
+                },
+
+            });
+        });
+    });

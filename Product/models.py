@@ -1,5 +1,7 @@
 from django.db import models
 from Category.models import Category
+from DjangoProjectShop import settings
+
 
 class Color(models.Model):
     name = models.CharField(max_length=20, unique=True)
@@ -25,7 +27,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
 
     description = models.TextField(blank=True, null=True)
-    base_price = models.DecimalField(max_digits=10, decimal_places=2)
+    base_price = models.PositiveSmallIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     Image=models.ImageField(upload_to="Products/Images",null=True,blank=True)
     class Meta:
@@ -46,3 +48,11 @@ class ProductVariation(models.Model):
         verbose_name_plural = " ویژگی محصولات"
     def __str__(self):
         return f'{self.product.name} - {self.color.color_name} - {self.size.name}'
+class Faviorate(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='favorites')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='favorites')
+    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'product'], name='unique_favorite')
+        ]

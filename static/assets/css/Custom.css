@@ -10,6 +10,38 @@
             height: 100px;
             display: inline-block;
             margin: 10px;
-            border: 1px solid ;
+            cursor: pointer;
+            border: 2px solid transparent;
             background-color: var(--color);
+}
+.color-box.selected {
+    border-color: black;
+}
+
+.size-box {
+    padding: 10px;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid transparent;
+    margin: 5px;
+
+}
+
+.size-box.selected {
+    border-color: black;
+    background-color: aqua;
+}
+.alert-message
+{
+    display: none;
+    position: absolute;
+    top: 90%;
+    margin-top: 5px;
+    right: 250px;
+    padding: 10px;
+    border: 1px solid white ;
+    border-radius: 5px;
+    /*z-index: 1000;*/
+    color: white;
+    font-size:10px;
 }
