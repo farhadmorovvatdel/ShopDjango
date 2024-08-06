@@ -172,3 +172,64 @@ $(document).ready(function (){
             });
         });
     });
+$(document).ready(function (){
+    $('#Passchange_form').on('submit',function (event){
+        var isValid=true;
+        var currentpassword= $('#CurrentPassword_id').val()
+        if(currentpassword===''){
+            alert("not null")
+        }
+         if (!isValid) {
+            event.preventDefault();
+        }
+    })
+})
+$(document).ready(function() {
+    $('#Passchange_form').on('submit', function(event) {
+        event.preventDefault();
+        var form = $(this);
+        var formData = form.serialize();
+
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#response_message').html('<p style="color: green;">رمز عبور با موفقیت تغییر کرد.</p>');
+                    setTimeout(function() {
+                        window.location.href = '/';  // هدایت به صفحه اصلی یا صفحه دیگر بعد از موفقیت
+                    }, 2000);
+                } else if (response.status === 'NotMatch') {
+                    $('#response_message').html('<p style="color: red;">رمزهای عبور جدید با هم مطابقت ندارند.</p>');
+                } else {
+                    $('#response_message').html('<p style="color: red;">خطایی در تغییر رمز عبور پیش آمده است.</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#response_message').html('<p style="color: red;">خطای سرور: ' + error + '</p>');
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+function getCsrfToken() {
+            return $('meta[name="csrf-token"]').attr('content');
+        }
+    $('.e-remove-product').on('click', function (event) {
+        event.preventDefault()
+        var url = $(this).data('url');
+        var item_id=$(this).data('item')
+        $.ajax({
+            type:'POST',
+            url:url,
+             headers: {
+                'X-CSRFToken': getCsrfToken() // Include CSRF token in headers
+             },
+        })
+
+
+    })
+});
+

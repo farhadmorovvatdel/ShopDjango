@@ -1,6 +1,7 @@
 {% extends 'Shared/Base.html' %}
 {% load static %}
 {% block content %}
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <div class="e-shopcart-wrap">
     <div class="container">
         <div class="row">
@@ -40,7 +41,7 @@
                                         <a href="javascript:void(0);" class="e-btn wishlist-ac">افزودن به سبد </a>
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0);" class="sc-produc-remove e-remove-product">
+                                        <a href="{% url 'Product:deleteproductfaviorate' item.id %}" data-url="{% url 'Product:deleteproductfaviorate' item.id %}" data-item="{{ item.id }}"  class="sc-product-remove e-remove-product " >
                                             <img src="{% static 'assets/images/index1/svg/cut.svg' %}" alt="icon">
                                         </a>
                                     </td>

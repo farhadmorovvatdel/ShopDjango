@@ -26,17 +26,19 @@ def ProductDetailView(request,id):
 
     return render(request,'Product_Detail.html',context)
 
-@login_required()
+@login_required(login_url="/")
 def ProductFaviorate(request):
     UserFaviorats=Faviorate.objects.filter(user=request.user)
+    print(UserFaviorats)
+
+    print(UserFaviorats)
     context={
         "UserFaviorats":UserFaviorats
     }
     return  render(request,"wishlist.html",context)
 
-@login_required()
+@login_required(login_url="/")
 def AddProductFaviorate(request,id):
-    if request.method == "GET":
         product=get_object_or_404(Product,id=id)
         user=request.user
         Addfaviorate=Faviorate.objects.filter(product=product,user=user).exists()
@@ -45,4 +47,11 @@ def AddProductFaviorate(request,id):
         else:
             Faviorate.objects.create(product=product,user=user)
             return  JsonResponse({"status":'Added'})
-    return  render(request,'wishlist.html')
+        return  render(request,'wishlist.html')
+
+def DeleteProductFaviorate(request,item_id):
+    if request.method== 'POST':
+        item = get_object_or_404(Faviorate, id=item_id, user=request.user)
+        item.delete()
+    return redirect('Product:Productfaviorate')
+

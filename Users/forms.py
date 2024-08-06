@@ -90,3 +90,21 @@ class EditProfileForm(forms.ModelForm):
 
 
         }
+
+class PasswrodChangeForm(forms.Form):
+    CurrentPassword = forms.CharField(max_length=30, required=True, label=" رمز عبور",
+widget=forms.PasswordInput(attrs={
+'class': 'e-field-inner',
+ 'placeholder': 'لطفا رمز عبور خود را وارد نمایید',
+ 'id': ' CurrentPassword_id'
+ }))
+
+    Password = forms.CharField(max_length=30, required=True, label=" رمز عبور",
+widget=forms.PasswordInput(attrs={
+'class': 'e-field-inner',
+'placeholder': 'لطفا رمز عبور خود را وارد نمایید',
+ 'id': 'ChangePassword_id'
+}))
+    RePassword = forms.CharField(max_length=30, required=True, label="تکرار رمز عبور",widget=forms.PasswordInput(attrs={
+'class': 'e-field-inner','placeholder': 'لطفا تکرار رمز عبور خود را وارد نمایید','id': 'ChanegRePassword_id'
+                                 }))

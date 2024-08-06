@@ -1,7 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import View
-
+from .forms import  PasswrodChangeForm
+from django.views.generic import  DeleteView
 from  Users.models import  CustomeUser
 from .forms import LoginForm,EditProfileForm,RegisterForm
 from django.contrib.auth import authenticate,login,logout
@@ -25,19 +27,6 @@ def LoginView(request):
             return  JsonResponse({'result':'error'})
     return  render(request, 'Home.html',{'form':form})
 
-# class RegisterView(CreateView):
-#     form_class = RegisterForm
-#     model = CustomeUser
-#     template_name = 'Home.html'
-#     success_url = "/users/profile"
-#
-#     def form_valid(self, form):
-#         user = form.save(commit=False)
-#         user.set_password(user.password)
-#         user.save()
-#         if self.request.is_ajax():
-#             return  JsonResponse({'response':'success'})
-#         return super().form_valid(form)
 
 def RegisterView(request):
     Register=RegisterForm()
@@ -52,7 +41,7 @@ def RegisterView(request):
                 user1 = Register.save(commit=False)
                 user1.set_password(password)
                 user1.save()
-            return redirect('Users:login')
+            return redirect('/')
 
     return render(request,"Home.html",{' Register': Register})
 
@@ -60,7 +49,7 @@ def RegisterView(request):
 
 def LogoutView(request):
     logout(request)
-    return redirect('Users:login')
+    return redirect('/')
 
 
 class ProfileView(LoginRequiredMixin,View):
@@ -78,6 +67,30 @@ class ProfileView(LoginRequiredMixin,View):
 
 
 
+
+class UserChangePassword(LoginRequiredMixin,View):
+    def get(self,request):
+        form = PasswrodChangeForm()
+        return  render(request,"UserChangePassword.html",{'form':form})
+    def post(self,request):
+        form = PasswrodChangeForm()
+        if form.is_valid():
+             CurrentPassword=form.cleaned_data[' CurrentPassword']
+             pass1 = form.cleaned_data['Password']
+             pass2 = form.cleaned_data['RePassword']
+             user=self.request.user
+             User=CustomeUser.objects.filter(mobile=user.mobile).first()
+             if User and User.check_password(CurrentPassword) :
+                User.set_password(pass1)
+                User.save()
+                logout(request)
+                return  JsonResponse({"status":"success"})
+             elif(pass1!=pass2):
+                 return  JsonResponse({"status":"NotMatch"})
+             else:
+                     return JsonResponse({"status":"error"})
+
+        return  render(request,'UserChangePassword.html')
 
 
 
