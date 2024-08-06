@@ -52,6 +52,7 @@
     color: red;
     font-size: 0.875em;
     margin-top: 0.5em;
+
     padding: 10px;
     border: 1px solid red;
     border-radius: 4px;
@@ -59,3 +60,30 @@
 
 }
 
+.success_message
+{
+    display: None;
+    color: green;
+    font-size: 0.875em;
+    margin-top: 0.5em;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 4px;
+    box-shadow: 0 0 5px;
+}
+.error_pas
+{
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.5em;
+}
+/*#nofavpr {*/
+/*    background-color: #fff;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 5px;*/
+/*    padding: 20px;*/
+/*    text-align: center;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*    color: red;*/
+/*   */
+/*}*/

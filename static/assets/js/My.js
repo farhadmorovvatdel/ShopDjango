@@ -10,7 +10,7 @@ $(document).ready(function (){
             isValid=false
         }
         if(mobile !='' && mobile.length<11) {
-            $('#mobile-error').text("شماره موبایل باید 11 رفمی باشد")
+            $('#mobile-error').text("شماره موبایل باید 11 رقمی باشد")
             isValid = false
         }
          if(mobile !='' && mobile.length>11)
@@ -24,8 +24,12 @@ $(document).ready(function (){
             isValid=false
         }
            if (!isValid) {
+               setTimeout(function () {
+                   $('.error-message').empty()
+
+               }, 3000);
+           }
             event.preventDefault();
-        }
     })
 })
  $(document).ready(function() {
@@ -43,6 +47,10 @@ $(document).ready(function (){
                         {
                             window.location.href = "http://localhost:8001/users/profile"
                         }
+                        setTimeout(function () {
+                              $('#login-error').empty()
+
+                     }, 3000);
 
                     }
 
@@ -82,12 +90,16 @@ $(document).ready(function (){
         }
 
            if (!isValid) {
+               setTimeout(function () {
+                   $('.error-message').empty()
+
+               }, 3000);
+           }
             event.preventDefault();
-        }
     })
 })
 
- //
+
  // $(document).ready(function() {
  //            $('#RegisterFormId').submit(function(event) {
  //                event.preventDefault();
@@ -97,8 +109,8 @@ $(document).ready(function (){
  //                    data: $(this).serialize(),
  //                    dataType: 'json',
  //                    success: function (res) {
- //                        if (res.response === 'found') {
- //                            $('#phone-error').text("شماره موبایل تکراری می باشد")
+ //                        if (res.response ==='found') {
+ //                            $('#notphone-error').text("شماره موبایل تکراری می باشد")
  //                        }
  //                     if (res.response === 'success') {
  //                             window.location.href = "/users/profile";
@@ -135,7 +147,7 @@ $(document).ready(function (){
             console.log('Selected size:', $(this).data('size'));
         });
     });
-
+// Add Faviorate Product
    $(document).ready(function() {
         $('.add-to-favorites').on('click', function(event) {
             event.preventDefault();
@@ -173,12 +185,12 @@ $(document).ready(function (){
             });
         });
     });
+// ChangePasswordForm
 $(document).ready(function (){
     $('#Passchange_form').submit(function (event){
         var isValid=true;
         $('.password_error').empty();
         var cussrentpassword=$('#CurrentPassword_id').val()
-        var message=$('#password_error')
         var newpass=$('#ChangePassword_id').val()
         var newpass2=$('#ChanegRePassword_id').val()
         if(cussrentpassword === '') {
@@ -208,7 +220,7 @@ $(document).ready(function (){
             setTimeout(function() {
                 $('.password_error').empty()
                   $('.password_error').hide();
-;
+
             }, 3000);
 
             event.preventDefault();
@@ -217,7 +229,39 @@ $(document).ready(function (){
     })
 })
 
+  $(document).ready(function() {
+        $('#Passchange_form').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('.success_message').text('رمز عبور شما با موفقیت تغییر یافت')
+                        $('.success_message').show()
+                       setTimeout(function() {
+                        $('.success_message').empty();
+                         $('.success_message').hide()
+                        window.location.href = "/users/logout";
+                    }, 2000);
+                    } else if(response.status ==='error') {
 
+                       $('#error_pas').text('رمز عبور فعلی صحیح نمی باشد')
+                       $('#error_pas').show()
+                        setTimeout(function() {
+
+                        $('#error_pas').empty();
+                        $('.password_error').hide();
+                    }, 3000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('خطا: ' + error);
+                }
+            });
+        });
+    });
 //Remove Faviorate Product/////
 $(document).ready(function() {
 function getCsrfToken() {
@@ -231,9 +275,27 @@ function getCsrfToken() {
             type:'POST',
             url:url,
              headers: {
-                'X-CSRFToken': getCsrfToken() // Include CSRF token in headers
+                'X-CSRFToken': getCsrfToken()
+             },
+             success:function (res){
+                if(res.status ==='NotFound'){
+                    $('#nofavpr').empty();
+                    $('#nofavpr').text("محصولی در لیست علاقه مندی ها موجود نمی باشد");
+                    $('#nofavpr').css({
+                    'background-color': '#fff',
+                    'border': '1px solid #ddd',
+                    'border-radius': '5px',
+                    'padding': '20px',
+                    'text-align': 'center',
+                    'box-shadow': '0 0 10px rgba(0, 0, 0, 0.1)',
+                    'color': 'red'
+
+                    })
+
+                }
              },
         })
+
     })
 });
 
