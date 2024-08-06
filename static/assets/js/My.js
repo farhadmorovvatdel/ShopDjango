@@ -54,6 +54,7 @@ $(document).ready(function (){
 
     var isValid=true;
     $('.error-message').empty();
+
     var Registermobile=$('#RegisterMobile').val()
 
     var password=$('#RegisterPassword').val()
@@ -173,46 +174,51 @@ $(document).ready(function (){
         });
     });
 $(document).ready(function (){
-    $('#Passchange_form').on('submit',function (event){
+    $('#Passchange_form').submit(function (event){
         var isValid=true;
-        var currentpassword= $('#CurrentPassword_id').val()
-        if(currentpassword===''){
-            alert("not null")
+        $('.password_error').empty();
+        var cussrentpassword=$('#CurrentPassword_id').val()
+        var message=$('#password_error')
+        var newpass=$('#ChangePassword_id').val()
+        var newpass2=$('#ChanegRePassword_id').val()
+        if(cussrentpassword === '') {
+          $('#currentpassword').text('لطفا رمز عبور فعلی را وارد نمایید')
+          $('#currentpassword').show()
+            isValid=false
+
         }
-         if (!isValid) {
+        else if(newpass === ''){
+        $('#newpassword').text('لطفا رمز عبور جدید را وارد نمایید')
+            $('#newpassword').show()
+            isValid=false
+        }
+
+        else if(newpass2===''){
+            $('#newrepassword').text('لطفا  تکرار رمز عبور جدید را وارد نمایید')
+             $('#newrepassword').show()
+            isValid=false
+           }
+        else if(newpass!=newpass2){
+        $('#matchpassword').text('رمزهای عبور جدید با هم مغایرت دارند')
+         $('#matchpassword').show()
+            isValid=false
+           }
+
+        if (!isValid) {
+            setTimeout(function() {
+                $('.password_error').empty()
+                  $('.password_error').hide();
+;
+            }, 3000);
+
             event.preventDefault();
         }
+
     })
 })
-$(document).ready(function() {
-    $('#Passchange_form').on('submit', function(event) {
-        event.preventDefault();
-        var form = $(this);
-        var formData = form.serialize();
 
-        $.ajax({
-            url: form.attr('action'),
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                if (response.status === 'success') {
-                    $('#response_message').html('<p style="color: green;">رمز عبور با موفقیت تغییر کرد.</p>');
-                    setTimeout(function() {
-                        window.location.href = '/';  // هدایت به صفحه اصلی یا صفحه دیگر بعد از موفقیت
-                    }, 2000);
-                } else if (response.status === 'NotMatch') {
-                    $('#response_message').html('<p style="color: red;">رمزهای عبور جدید با هم مطابقت ندارند.</p>');
-                } else {
-                    $('#response_message').html('<p style="color: red;">خطایی در تغییر رمز عبور پیش آمده است.</p>');
-                }
-            },
-            error: function(xhr, status, error) {
-                $('#response_message').html('<p style="color: red;">خطای سرور: ' + error + '</p>');
-            }
-        });
-    });
-});
 
+//Remove Faviorate Product/////
 $(document).ready(function() {
 function getCsrfToken() {
             return $('meta[name="csrf-token"]').attr('content');
@@ -228,8 +234,6 @@ function getCsrfToken() {
                 'X-CSRFToken': getCsrfToken() // Include CSRF token in headers
              },
         })
-
-
     })
 });
 

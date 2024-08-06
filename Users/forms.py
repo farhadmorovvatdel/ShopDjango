@@ -96,7 +96,7 @@ class PasswrodChangeForm(forms.Form):
 widget=forms.PasswordInput(attrs={
 'class': 'e-field-inner',
  'placeholder': 'لطفا رمز عبور خود را وارد نمایید',
- 'id': ' CurrentPassword_id'
+ 'id': 'CurrentPassword_id'
  }))
 
     Password = forms.CharField(max_length=30, required=True, label=" رمز عبور",

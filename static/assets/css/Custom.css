@@ -45,3 +45,17 @@
     color: white;
     font-size:10px;
 }
+
+.password_error
+{
+    display: None;
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.5em;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 4px;
+    box-shadow: 0 0 5px;
+
+}
+
