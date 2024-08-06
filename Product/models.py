@@ -24,12 +24,11 @@ class Size(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=50)
-
-    description = models.TextField(blank=True, null=True)
-    base_price = models.PositiveSmallIntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    Image=models.ImageField(upload_to="Products/Images",null=True,blank=True)
+    name = models.CharField(max_length=50,verbose_name='نام محصول')
+    description = models.TextField(blank=True, null=True,verbose_name='توضیحات')
+    base_price = models.PositiveSmallIntegerField(verbose_name='قیمت محصول')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,verbose_name='دسته بندی محصول')
+    Image=models.ImageField(upload_to="Products/Images",null=True,blank=True,verbose_name='عکس محصول')
     class Meta:
         verbose_name="محصول"
         verbose_name_plural="محصولات"
@@ -38,9 +37,9 @@ class Product(models.Model):
 
 
 class ProductVariation(models.Model):
-    product = models.ForeignKey(Product, related_name='variations', on_delete=models.CASCADE)
-    color = models.ForeignKey(Color, on_delete=models.CASCADE)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='variations', on_delete=models.CASCADE,verbose_name='نام محصول')
+    color = models.ForeignKey(Color, on_delete=models.CASCADE,verbose_name='رنگ محصول')
+    size = models.ForeignKey(Size, on_delete=models.CASCADE,verbose_name='سایز محصول')
 
 
     class Meta:
@@ -50,9 +49,11 @@ class ProductVariation(models.Model):
         return f'{self.product.name} - {self.color.color_name} - {self.size.name}'
 class Faviorate(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='favorites')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='favorites')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='favorites',verbose_name="نام محصول")
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user', 'product'], name='unique_favorite')
         ]
+        verbose_name="علاقه مندی"
+        verbose_name_plural="علاقه مندی ها"
